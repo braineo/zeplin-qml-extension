@@ -1,4 +1,6 @@
-# Sample Zeplin Extension
+# Zeplin QML Extension
+
+This plugin generates code for QML
 
 [Zeplin](https://zeplin.io) extension that generates sample snippets.
 
@@ -8,15 +10,33 @@ Add the extension to your project from extensions.zeplin.io.
 
 ## Output
 
+```qml
+Rectangle {
+    width: 464
+    height: 510
+    radius: 4
+    border {
+        width: 2
+        color: "#ffbb18"
+    }
+}
 ```
-sample
+
+``` qml
+Text {
+    text: qsTr(example text for plugin')
+    color: "#ffffff"
+    font.pixelSize: 14
+    wrapMode: Text.WordWrap
+    elide: Text.ElideRight
+}
 ```
 
 ## Options
 
-#### Sample option
+#### Resize function name
 
-Sample option providing sample functionality.
+Name of function to apply to size, width, height.
 
 ## Development
 

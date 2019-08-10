@@ -24,7 +24,7 @@ export class QmlLayerGenerator {
     }
     // Parse shape
     if (layer.type === 'shape') {
-      const attrs = [];
+      let attrs = [];
       attrs.push(`${INDENTATION}width: ${resizeWrapper(this.options.resizeFunction, layer.rect.width)}`);
       attrs.push(`${INDENTATION}height: ${resizeWrapper(this.options.resizeFunction, layer.rect.height)}`);
       // color
@@ -42,12 +42,8 @@ export class QmlLayerGenerator {
       if (layer.borderRadius !== 0) {
         attrs.push(`${INDENTATION}radius: ${resizeWrapper(this.options.resizeFunction, layer.borderRadius)}`);
       }
-      let hasBorder = false;
-      const borderAttr = this.parseBorder(layer.borders);
-      if (!!borderAttr) {
-        hasBorder = true;
-        attrs.push(borderAttr);
-      }
+      let hasBorder = layer.borders.length > 0;
+      attrs = attrs.concat(this.parseBorder(layer.borders).map(attr => `${INDENTATION}${attr}`));
       return `${hasBorder || !isTransparent ? 'Rectangle' : 'Item'} {
 ${attrs.join('\n')}\n}`
     }
@@ -64,9 +60,10 @@ ${attrs.join('\n')}\n}`
 
   parseBorder (borders) {
     if (borders.length === 0) {
-      return '';
+      return [];
     }
     const attrs = [];
+    attrs.push(`border {`);
     const border = borders[0];
     if (border.thickness !== null) {
       attrs.push(`${INDENTATION}width: ${resizeWrapper(this.options.resizeFunction, border.thickness)}`);
@@ -74,9 +71,8 @@ ${attrs.join('\n')}\n}`
     if (border.fill.type === "color") {
       attrs.push(`${INDENTATION}color: "${parseColor(border.fill.color)}"`);
     }
-    return `border {
-${attrs.join('\n')}\n}`
-
+    attrs.push(`}`);
+    return attrs;
   };
 
   parseTextStyle (textStyles) {

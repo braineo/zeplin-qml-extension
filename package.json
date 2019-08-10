@@ -1,13 +1,21 @@
 {
   "name": "qml-extension",
   "version": "0.1.0",
-  "description": "Sample extension description.",
+  "description": "Generate QML components from layer and text.",
   "scripts": {
     "start": "zem start",
     "build": "zem build",
     "clean": "zem clean",
     "exec": "zem exec",
     "publish": "zem publish"
+  },
+  "author": {
+    "name": "braineo",
+    "url": "https://github.com/braineo/zeplin-qml-extension"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/braineo/zeplin-qml-extension.git"
   },
   "zeplin": {
     "displayName": "QML",

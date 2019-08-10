@@ -3,3 +3,5 @@ export const OPTION_NAMES = {
   USE_LINKED_STYLEGUIDES: "useLinkedStyleguides",
   HANDLE_SCREENS: "handleScreens"
 };
+
+const INDENTATION = "    ";

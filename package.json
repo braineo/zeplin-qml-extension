@@ -21,6 +21,14 @@
     "displayName": "QML",
     "platforms": [
       "web"
+    ],
+    "options": [
+      {
+        "name": "Resize function name",
+        "type": "text",
+        "id": "resizeFunction",
+        "default": ""
+      }
     ]
   },
   "dependencies": {

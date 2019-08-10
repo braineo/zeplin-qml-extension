@@ -4,16 +4,17 @@
  */
 import {getResourceContainer} from "zeplin-extension-style-kit/lib/utils";
 import {getLayerCode} from "./generators";
+import {OPTION_NAMES} from "./constants";
 
 function layer(context, selectedLayer) {
   const containerType = "styleguide" in context ? "styleguide" : "project";
   const containerAndType = getResourceContainer(context);
   const options = {
-    // useLinkedStyleguides: context.getOption(OPTION_NAMES.USE_LINKED_STYLEGUIDES),
-    // classPrefix: context.getOption(OPTION_NAMES.CLASS_PREFIX),
+    useLinkedStyleguides: context.getOption(OPTION_NAMES.USE_LINKED_STYLEGUIDES),
+    resizeFunction: context.getOption(OPTION_NAMES.RESIZE_FUNCTION),
     // divisor: context.project.densityDivisor
   };
-  const code = getLayerCode(containerAndType, selectedLayer, {});
+  const code = getLayerCode(containerAndType, selectedLayer, options);
 
   return {
     code: code,

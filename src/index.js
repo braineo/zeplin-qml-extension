@@ -3,7 +3,7 @@
  * https://github.com/zeplin/zeplin-extension-documentation
  */
 import {getResourceContainer} from "zeplin-extension-style-kit/lib/utils";
-import {getLayerCode, QmlLayerGenerator} from "./generators";
+import {QmlLayerGenerator} from "./generators";
 import {OPTION_NAMES} from "./constants";
 
 function layer(context, selectedLayer) {

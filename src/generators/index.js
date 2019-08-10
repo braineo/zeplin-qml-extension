@@ -1,8 +1,5 @@
 import Color from "zeplin-extension-style-kit/values/color";
-
-export const getLayerCode = (containerAndType, layer, options) => {
-
-};
+import {INDENTATION} from "../constants";
 
 export class QmlLayerGenerator {
   constructor(containerAndType, layer, options) {
@@ -28,8 +25,8 @@ export class QmlLayerGenerator {
     // Parse shape
     if (layer.type === 'shape') {
       const attrs = [];
-      attrs.push(`    width: ${resizeWrapper(this.options.resizeFunction, layer.rect.width)}`);
-      attrs.push(`    height: ${resizeWrapper(this.options.resizeFunction, layer.rect.height)}`);
+      attrs.push(`${INDENTATION}width: ${resizeWrapper(this.options.resizeFunction, layer.rect.width)}`);
+      attrs.push(`${INDENTATION}height: ${resizeWrapper(this.options.resizeFunction, layer.rect.height)}`);
       // color
       let isTransparent = false;
       if (layer.fills.length === 0) {
@@ -37,13 +34,13 @@ export class QmlLayerGenerator {
       } else {
         const fill = layer.fills[0];
         if (fill.type === "color") {
-          attrs.push(`    color: "${parseColor(fill.color)}"`);
+          attrs.push(`${INDENTATION}color: "${parseColor(fill.color)}"`);
         }
       }
       // border
 
       if (layer.borderRadius !== 0) {
-        attrs.push(`    radius: ${resizeWrapper(this.options.resizeFunction, layer.borderRadius)}`);
+        attrs.push(`${INDENTATION}radius: ${resizeWrapper(this.options.resizeFunction, layer.borderRadius)}`);
       }
       let hasBorder = false;
       const borderAttr = this.parseBorder(layer.borders);
@@ -57,7 +54,7 @@ ${attrs.join('\n')}\n}`
 
     if (layer.type === 'text') {
       let attrs = [];
-      attrs.push(`    text: qsTr('${layer.content}')`);
+      attrs.push(`${INDENTATION}text: qsTr('${layer.content}')`);
       attrs = attrs.concat(this.parseTextStyle(layer.textStyles));
       return `Text {
 ${attrs.join('\n')}\n}`
@@ -72,10 +69,10 @@ ${attrs.join('\n')}\n}`
     const attrs = [];
     const border = borders[0];
     if (border.thickness !== null) {
-      attrs.push(`    width: ${resizeWrapper(this.options.resizeFunction, border.thickness)}`);
+      attrs.push(`${INDENTATION}width: ${resizeWrapper(this.options.resizeFunction, border.thickness)}`);
     }
     if (border.fill.type === "color") {
-      attrs.push(`    color: "${parseColor(border.fill.color)}"`);
+      attrs.push(`${INDENTATION}color: "${parseColor(border.fill.color)}"`);
     }
     return `border {
 ${attrs.join('\n')}\n}`
@@ -89,14 +86,14 @@ ${attrs.join('\n')}\n}`
     }
     // text style applies to range of text
     const textStyle = textStyles[0].textStyle;
-    attrs.push(`    color: "${parseColor(textStyle.color)}"`);
-    attrs.push(`    font.pixelSize: ${resizeWrapper(this.options.resizeFunction, textStyle.fontSize)}`);
+    attrs.push(`${INDENTATION}color: "${parseColor(textStyle.color)}"`);
+    attrs.push(`${INDENTATION}font.pixelSize: ${resizeWrapper(this.options.resizeFunction, textStyle.fontSize)}`);
     if (textStyle.fontWeight === 700) {
-      attrs.push(`    font.weight: Font.Bold`);
+      attrs.push(`${INDENTATION}font.weight: Font.Bold`);
       // 400 is normal do nothing
     }
-    attrs.push(`    wrapMode: Text.WordWrap`);
-    attrs.push(`    elide: Text.ElideRight`);
+    attrs.push(`${INDENTATION}wrapMode: Text.WordWrap`);
+    attrs.push(`${INDENTATION}elide: Text.ElideRight`);
     return attrs;
   };
 

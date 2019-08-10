@@ -16,7 +16,7 @@ const parseLayer = (containerAndType, layer, options) => {
   if (!layer) {
     return '';
   }
-
+  // Parse shape
   if (layer.type === 'shape') {
     const attrs = [];
     attrs.push(`    width: ${layer.rect.width}`);
@@ -45,6 +45,15 @@ const parseLayer = (containerAndType, layer, options) => {
     return `${hasBorder || !isTransparent ? 'Rectangle' : 'Item'} {
 ${attrs.join('\n')}\n}`
   }
+
+  if (layer.type === 'text') {
+    let attrs = [];
+    attrs.push(`    text: qsTr('${layer.content}')`);
+    attrs = attrs.concat(parseTextStyle(layer.textStyles));
+    return `Text {
+${attrs.join('\n')}\n}`
+  }
+
 };
 
 const parseColor = (extensionColor) => {
@@ -67,6 +76,24 @@ const parseBorder = (borders) => {
   return `border {
 ${attrs.join('\n')}\n}`
 
+};
+
+const parseTextStyle = (textStyles) => {
+  const attrs = [];
+  if (textStyles.length === 0) {
+    return attrs;
+  }
+  // text style applies to range of text
+  const textStyle = textStyles[0].textStyle;
+  attrs.push(`    color: "${parseColor(textStyle.color)}"`);
+  attrs.push(`    font.pixelSize: ${textStyle.fontSize}`);
+  if (textStyle.fontWeight === 700) {
+    attrs.push(`    font.weight: Font.Bold`);
+    // 400 is normal do nothing
+  }
+  attrs.push(`    wrapMode: Text.WordWrap`);
+  attrs.push(`    elide: Text.ElideRight`);
+  return attrs;
 };
 
 const parseLayers = (containerAndType, layers, options) => {

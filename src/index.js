@@ -2,20 +2,23 @@
  * Export functions you want to work with, see documentation for details:
  * https://github.com/zeplin/zeplin-extension-documentation
  */
+import {getResourceContainer} from "zeplin-extension-style-kit/lib/utils";
+import {getLayerCode} from "./generators";
 
 function layer(context, selectedLayer) {
-    const containerType = "styleguide" in context ? "styleguide" : "project";
-    // const object = {
-    //     "layerName": selectedLayer.name,
-    //     [`${containerType}Name`] : context[containerType].name
-    // }
+  const containerType = "styleguide" in context ? "styleguide" : "project";
+  const containerAndType = getResourceContainer(context);
+  const options = {
+    // useLinkedStyleguides: context.getOption(OPTION_NAMES.USE_LINKED_STYLEGUIDES),
+    // classPrefix: context.getOption(OPTION_NAMES.CLASS_PREFIX),
+    // divisor: context.project.densityDivisor
+  };
+  const code = getLayerCode(containerAndType, selectedLayer, {});
 
-    // const JSONString = JSON.stringify(object, null, 2);
-
-    return {
-        code: '{"test": 222}',
-        language: "JSON"
-    };
+  return {
+    code: code,
+    language: "qml",
+  };
 }
 
 function screen(context, selectedVersion, selectedScreen) {
@@ -69,16 +72,16 @@ function comment(context, text) {
 }
 
 export default {
-    layer,
-    screen,
-    component,
-    colors,
-    textStyles,
-    exportColors,
-    exportTextStyles,
-    styleguideColors,
-    styleguideTextStyles,
-    exportStyleguideColors,
-    exportStyleguideTextStyles,
-    comment
+  layer,
+  screen,
+  component,
+  colors,
+  textStyles,
+  exportColors,
+  exportTextStyles,
+  styleguideColors,
+  styleguideTextStyles,
+  exportStyleguideColors,
+  exportStyleguideTextStyles,
+  comment
 };

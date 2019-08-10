@@ -3,7 +3,7 @@
  * https://github.com/zeplin/zeplin-extension-documentation
  */
 import {getResourceContainer} from "zeplin-extension-style-kit/lib/utils";
-import {getLayerCode} from "./generators";
+import {getLayerCode, QmlLayerGenerator} from "./generators";
 import {OPTION_NAMES} from "./constants";
 
 function layer(context, selectedLayer) {
@@ -14,10 +14,10 @@ function layer(context, selectedLayer) {
     resizeFunction: context.getOption(OPTION_NAMES.RESIZE_FUNCTION),
     // divisor: context.project.densityDivisor
   };
-  const code = getLayerCode(containerAndType, selectedLayer, options);
+  const generator = new QmlLayerGenerator(containerAndType, selectedLayer, options);
 
   return {
-    code: code,
+    code: generator.getCode(),
     language: "qml",
   };
 }

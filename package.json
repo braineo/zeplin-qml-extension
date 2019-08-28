@@ -34,6 +34,12 @@
         "type": "switch",
         "id": "useLinkedStyleguides",
         "default": true
+      },
+      {
+        "name": "QML name space of style guide",
+        "type": "text",
+        "id": "styleGuideNamespace",
+        "default": ""
       }
     ]
   },

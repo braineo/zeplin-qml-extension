@@ -17,7 +17,10 @@ export class QmlLayerGenerator {
     if (!this.options.useLinkedStyleguides || ! (hexColor in this.colorTable)) {
       return `"${hexColor}"`
     }
-    return this.colorTable[hexColor].name
+    if (!!this.options.styleGuideNamespace) {
+      return `${this.options.styleGuideNamespace}.${camelize(this.colorTable[hexColor].name)}`
+    }
+    return camelize(this.colorTable[hexColor].name)
   }
 
   getCode () {
@@ -126,6 +129,12 @@ const getColorTable = (colorList) => {
     colorTable[parseColor(color)] = color;
   }
   return colorTable;
+};
+
+const camelize = (str) => {
+  return str.replace(/[_.\s-](\w|$)/g, (_,x) => {
+    return x.toUpperCase();
+  });
 };
 
 const getCircularReplacer = () => {

@@ -28,6 +28,12 @@
         "type": "text",
         "id": "resizeFunction",
         "default": ""
+      },
+      {
+        "name": "Display resources from linked and parent styleguides",
+        "type": "switch",
+        "id": "useLinkedStyleguides",
+        "default": true
       }
     ]
   },

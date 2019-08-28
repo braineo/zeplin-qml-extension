@@ -2,9 +2,10 @@
  * Export functions you want to work with, see documentation for details:
  * https://github.com/zeplin/zeplin-extension-documentation
  */
-import {getResourceContainer} from "zeplin-extension-style-kit/lib/utils";
+import {getResourceContainer} from "zeplin-extension-style-kit/utils";
 import {QmlLayerGenerator} from "./generators";
 import {OPTION_NAMES} from "./constants";
+
 
 function layer(context, selectedLayer) {
   const containerType = "styleguide" in context ? "styleguide" : "project";
@@ -12,7 +13,6 @@ function layer(context, selectedLayer) {
   const options = {
     useLinkedStyleguides: context.getOption(OPTION_NAMES.USE_LINKED_STYLEGUIDES),
     resizeFunction: context.getOption(OPTION_NAMES.RESIZE_FUNCTION),
-    // divisor: context.project.densityDivisor
   };
   const generator = new QmlLayerGenerator(containerAndType, selectedLayer, options);
 

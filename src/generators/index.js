@@ -1,3 +1,4 @@
+import { getResources } from "zeplin-extension-style-kit/utils";
 import Color from "zeplin-extension-style-kit/values/color";
 import {INDENTATION} from "../constants";
 
@@ -7,7 +8,18 @@ export class QmlLayerGenerator {
     this.options = options;
     this.container = containerAndType.container;
     this.type = containerAndType.type;
+    const styleGuideColors = getResources(this.container, this.type, this.options.useLinkedStyleguides, "colors");
+    this.colorTable = getColorTable(styleGuideColors);
   }
+
+  getColorValue(extensionColor) {
+    const hexColor = parseColor(extensionColor);
+    if (!this.options.useLinkedStyleguides || ! (hexColor in this.colorTable)) {
+      return `"${hexColor}"`
+    }
+    return this.colorTable[hexColor].name
+  }
+
   getCode () {
     debugLog(this.layer);
 
@@ -34,7 +46,7 @@ export class QmlLayerGenerator {
       } else {
         const fill = layer.fills[0];
         if (fill.type === "color") {
-          attrs.push(`${INDENTATION}color: "${parseColor(fill.color)}"`);
+          attrs.push(`${INDENTATION}color: ${this.getColorValue(fill.color)}`);
         }
       }
       // border
@@ -73,7 +85,7 @@ ${attrs.join('\n')}\n}`
       attrs.push(`${INDENTATION}width: ${resizeWrapper(this.options.resizeFunction, border.thickness)}`);
     }
     if (border.fill.type === "color") {
-      attrs.push(`${INDENTATION}color: "${parseColor(border.fill.color)}"`);
+      attrs.push(`${INDENTATION}color: ${this.getColorValue(border.fill.color)}`);
     }
     attrs.push(`}`);
     return attrs;
@@ -86,7 +98,7 @@ ${attrs.join('\n')}\n}`
     }
     // text style applies to range of text
     const textStyle = textStyles[0].textStyle;
-    attrs.push(`${INDENTATION}color: "${parseColor(textStyle.color)}"`);
+    attrs.push(`${INDENTATION}color: ${this.getColorValue(textStyle.color)}`);
     attrs.push(`${INDENTATION}font.pixelSize: ${resizeWrapper(this.options.resizeFunction, textStyle.fontSize)}`);
     if (textStyle.fontWeight === 700) {
       attrs.push(`${INDENTATION}font.weight: Font.Bold`);
@@ -108,6 +120,14 @@ const parseColor = (extensionColor) => {
   return color.toStyleValue('hex', {})
 };
 
+const getColorTable = (colorList) => {
+  const colorTable = {};
+  for (const color of colorList) {
+    colorTable[parseColor(color)] = color;
+  }
+  return colorTable;
+};
+
 const getCircularReplacer = () => {
   const seen = new WeakSet();
   return (key, value) => {
@@ -121,9 +141,9 @@ const getCircularReplacer = () => {
   };
 };
 
-function debugLog(obj) {
+export const debugLog = (obj) => {
   console.log(obj, getCircularReplacer());
-}
+};
 
 const resizeWrapper = (functionName, value) => {
   if (!!functionName) {

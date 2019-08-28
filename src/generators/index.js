@@ -42,6 +42,10 @@ export class QmlLayerGenerator {
       if (layer.borderRadius !== 0) {
         attrs.push(`${INDENTATION}radius: ${resizeWrapper(this.options.resizeFunction, layer.borderRadius)}`);
       }
+      if (layer.name.toLowerCase().includes('oval')) {
+        // Need to set radius for rectangle as Oval from sketch does not provide this attribute
+        attrs.push(`${INDENTATION}radius: ${resizeWrapper(this.options.resizeFunction, layer.rect.width)}`);
+      }
       let hasBorder = layer.borders.length > 0;
       attrs = attrs.concat(this.parseBorder(layer.borders).map(attr => `${INDENTATION}${attr}`));
       return `${hasBorder || !isTransparent ? 'Rectangle' : 'Item'} {

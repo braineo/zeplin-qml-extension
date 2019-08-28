@@ -1,6 +1,13 @@
 {
   "name": "qml-extension",
   "version": "0.1.0",
+  "license": "GPL-3.0",
+  "keywords": [
+    "zeplin",
+    "zeplin-extension",
+    "extension",
+    "qml"
+  ],
   "description": "Generate QML components from layer and text.",
   "scripts": {
     "start": "zem start",

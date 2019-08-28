@@ -38,6 +38,14 @@ Text {
 
 Name of function to apply to size, width, height.
 
+#### Resize function name
+
+Display resources from linked and parent style guides.
+
+#### Resize function name
+
+QML name space of style guide. A prefix to color names etc.
+
 ## Development
 
 This extension is developed using [zem](https://github.com/zeplin/zem), Zeplin Extension Manager. zem is a command line tool that lets you quickly create, test and publish extensions.

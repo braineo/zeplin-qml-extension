@@ -38,13 +38,17 @@ Text {
 
 Name of function to apply to size, width, height.
 
-#### Resize function name
+#### Use linked style guide
 
 Display resources from linked and parent style guides.
 
-#### Resize function name
+#### Style guide namespace
 
 QML name space of style guide. A prefix to color names etc.
+
+#### Text i18n option
+
+If enabled, will wrap text into `qsTr('text')` or `qsTrId('text-id')`
 
 ## Development
 

@@ -69,7 +69,9 @@ ${attrs.join('\n')}\n}`
 
     if (layer.type === 'text') {
       let attrs = [];
-      attrs.push(`${INDENTATION}text: qsTr('${layer.content}')`);
+      for (const wrappedText of trWrapper(this.options.translationFunction, layer.content)) {
+        attrs.push(`${INDENTATION}${wrappedText}`);
+      }
       attrs = attrs.concat(this.parseTextStyle(layer.textStyles));
       return `Text {
 ${attrs.join('\n')}\n}`
@@ -159,4 +161,28 @@ const resizeWrapper = (functionName, value) => {
     return `${functionName}(${value})`;
   }
   return `${value}`;
+};
+
+
+/**
+ * Create qsTr, qsTrId wrapper for text
+ * @param functionName
+ * @param {string} value
+ */
+const trWrapper = (functionName, value) => {
+  const ret = [];
+  switch (functionName) {
+    case 'qsTr':
+      ret.push(`text: qsTr('${value}')`);
+      break;
+    case 'qsTrId':
+      ret.push('//: Describe text context');
+      ret.push(`//% "${value}"`);
+      ret.push('//~ Extra comments for text');
+      ret.push(`text: qsTrId('${value.split(' ').filter(elem => !!elem).join('-')}')`);
+      break;
+    default:
+      ret.push(`text: '${value}'`);
+  }
+  return ret;
 };

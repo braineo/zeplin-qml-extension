@@ -47,6 +47,22 @@
         "type": "text",
         "id": "styleGuideNamespace",
         "default": ""
+      },
+      {
+        "name": "Text i18n Options",
+        "type": "picker",
+        "id": "translationFunction",
+        "options": [{
+          "name": "Disable",
+          "value": ""
+        },{
+          "name": "String based",
+          "value": "qsTr"
+        }, {
+          "name": "Id based",
+          "value": "qsTrId"
+        }],
+        "default": ""
       }
     ]
   },

@@ -1,6 +1,6 @@
 {
   "name": "zeplin-qml-extension",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "GPL-3.0",
   "keywords": [
     "zeplin",
@@ -52,16 +52,20 @@
         "name": "Text i18n Options",
         "type": "picker",
         "id": "translationFunction",
-        "options": [{
-          "name": "Disable",
-          "value": ""
-        },{
-          "name": "String based",
-          "value": "qsTr"
-        }, {
-          "name": "Id based",
-          "value": "qsTrId"
-        }],
+        "options": [
+          {
+            "name": "Disable",
+            "value": ""
+          },
+          {
+            "name": "String based",
+            "value": "qsTr"
+          },
+          {
+            "name": "Id based",
+            "value": "qsTrId"
+          }
+        ],
         "default": ""
       }
     ]

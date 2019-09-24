@@ -157,6 +157,7 @@ export const debugLog = (obj) => {
 };
 
 const resizeWrapper = (functionName, value) => {
+  value = Math.round(value);
   if (!!functionName) {
     return `${functionName}(${value})`;
   }

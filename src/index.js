@@ -14,6 +14,7 @@ function layer(context, selectedLayer) {
     useLinkedStyleguides: context.getOption(OPTION_NAMES.USE_LINKED_STYLEGUIDES),
     resizeFunction: context.getOption(OPTION_NAMES.RESIZE_FUNCTION),
     styleGuideNamespace: context.getOption(OPTION_NAMES.STYLE_GUIDE_NAMESPACE),
+    useAlphaRgbHex: context.getOption(OPTION_NAMES.HEX_ARGB),
     translationFunction: context.getOption(OPTION_NAMES.TRANSLATION_FUNCTION),
 
   };

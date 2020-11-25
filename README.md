@@ -46,6 +46,10 @@ Display resources from linked and parent style guides.
 
 QML name space of style guide. A prefix to color names etc.
 
+#### ARGB hex color format
+
+Display hex colors in ARGB format with the alpha value as the first tuple (instead of the default Zeplin format with alpha last)
+
 #### Text i18n option
 
 If enabled, will wrap text into `qsTr('text')` or `qsTrId('text-id')`

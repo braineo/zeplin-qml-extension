@@ -122,7 +122,7 @@ ${attrs.join('\n')}\n}`
 
 const parseColor = (extensionColor) => {
   const color = Color.fromRGBA(extensionColor);
-  return color.toStyleValue('hex', {})
+  return color.toStyleValue({ colorFormat: 'hex'})
 };
 
 const getColorTable = (colorList) => {

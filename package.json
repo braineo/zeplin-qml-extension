@@ -49,6 +49,12 @@
         "default": ""
       },
       {
+        "name": "Display hex colors in ARGB format",
+        "type": "switch",
+        "id": "useAlphaRgbHex",
+        "default": true
+      },
+      {
         "name": "Text i18n Options",
         "type": "picker",
         "id": "translationFunction",

@@ -13,7 +13,7 @@ export class QmlLayerGenerator {
   }
 
   getColorValue(extensionColor) {
-    const hexColor = parseColor(extensionColor);
+    const hexColor = parseColor(extensionColor, this.options.useAlphaRgbHex);
     if (!this.options.useLinkedStyleguides || ! (hexColor in this.colorTable)) {
       return `"${hexColor}"`
     }
@@ -120,9 +120,25 @@ ${attrs.join('\n')}\n}`
 
 }
 
-const parseColor = (extensionColor) => {
+
+function decToHex(c) {
+  var hex = c.toString(16);
+  return hex.length === 1 ? "0" + hex : hex;
+}
+
+function toHexAlphaString(color) {
+  let hexCode = decToHex(color.r) + decToHex(color.g) + decToHex(color.b);
+
+  if (color.a < 1) {
+      hexCode = decToHex(Math.round(color.a * 255)) + hexCode;
+  }
+
+  return `#${hexCode}`;
+}
+
+const parseColor = (extensionColor, useAlphaRgbHex = false) => {
   const color = Color.fromRGBA(extensionColor);
-  return color.toStyleValue('hex', {})
+  return useAlphaRgbHex ? toHexAlphaString(extensionColor) : color.toStyleValue({ colorFormat: 'hex'})
 };
 
 const getColorTable = (colorList) => {
